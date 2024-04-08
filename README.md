@@ -1,46 +1,43 @@
-# Getting Started with Create React App
+# Code Capsule Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## To start up the demo
 
-## Available Scripts
+Run `npm install` and then `npm start`
 
-In the project directory, you can run:
+## Explanations
 
-### `npm start`
+### Task 1
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To generate fixtures, a random approach has been chosen due to time constraints and a lack of knowledge in this specific domain. Thus, the fixtures have been created following the data structure presented in the assignment annex. A limitation was set on the data fixtures: all the actions happen in the span of the same three days. This seems like a reasonable limitation since the student tasks are usually limited in time (for submission, evaluation, etc.).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The fixture list can be found in the `action-list.json` file and was generated using the `generateStudentActions(200, 50)` function. This means that we have 200 students performing 50 actions each.
 
-### `npm test`
+The code for the fixture generation can be found in the `Task1` folder and specifically in the `student-action-generator.ts` file. Possible improvements for this task could be uneven distribution of the action types, i.e. the students will probably generate more action of type `SAVE` rather than of type `GENERATE_FIGURE`. The students should also be identified ideally by a unique UUID instead of a simple integer.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Task 2
 
-### `npm run build`
+Three charts have been created for this task:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+#### Most used actions chart
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The first chart consists of a simple count of how much each action has been used in total. This gives us a brief overview of the general action usage and allows catching unexpected discrepancies early. For example, if too many `CLEAR` actions have been performed compared to other exercises, we can speculate that students had difficulty understanding the tasks set before them.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The screenshot of the graph can be found in the `mostUsedActionsChart.png` file in the `images` folder and the function representing this chart in the code is `MostUsedActions`.
 
-### `npm run eject`
+#### Actions used through time
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This chart tries to present the actions executed through time by the students. The point of this chart is to represent the “journey” of the students through their actions. For example, if we see that a sharp increase in `GENERATE_FIGURE` actions, we can correlate it to a task that demands figure creation. Or to speculate further, a sharp increase in `RUN` without `SAVE` can indicate increased code testing due to a difficult task. This chart may not be useful on its own, but it can be used in conjunction with other graphs to tell a more interesting story.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+An interaction that allows the user to select which type of action to display/hide was planned, but was not implemented due to time constraints.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The screenshot of the graph can be found in the `actionsUsedThroughTime.png` file in the `images` folder and the function representing this chart in the code is `ActionsUsedThroughTime`.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Action type used by each student
 
-## Learn More
+This chart shows how much of an action has been performed by each student, presented in an increasing order. The user has the option to select the action type and the chart is updated in real-time. This chart can be useful in identifying students who have difficulty with the current tasks. If a particular student uses the `CLEAR` action much more than the average, we can speculate that they are having difficulty with the assignment or that they had numerous false starts due to misunderstanding of the task at hand.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The screenshot of the graph can be found in the `actionsByStudents.png` file in the `images` folder and the function representing this chart in the code is `ActionsUsedByStudents`.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Task 3
+
+Task 3 could not be accomplished due to time constraints, but several ideas could be implemented. One such idea is to have the `RUN` action also register if the code compilation has been successful or not. This could lead to interesting statistics on the ratio of code runs to successful code compilations. Perhaps this ratio could be used to evaluate the overall progression of the student?
