@@ -3,11 +3,9 @@ import './App.css';
 import { ActionType, StudentAction } from './Task1/student-action';
 import { useState } from 'react';
 import actionList from './action-list.json';
-import generateStudentActions from './Task1/student-action-generator';
 
 function App() {
-  //const studentActions = actionList as unknown as StudentAction[];
-  const studentActions = generateStudentActions(200, 50);
+  const studentActions = actionList as unknown as StudentAction[];
 
   return (
     <div className="App">
